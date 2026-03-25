@@ -23,9 +23,8 @@ Antes de iniciar, asegúrate de tener instalado:
 ## Instalación
 
 ### 1. Clonar el repositorio
-
-```bash
 git clone https://github.com/jaimelunalarcon/esponsor-test.git 
+cd esponsor-test
 
 ##  Instalar dependencias de backend
 composer install
@@ -34,10 +33,10 @@ composer install
 
 npm install
 
-##Configuración del entorno (Crear archivo .env)
+## Configuración del entorno (Crear archivo .env)
 cp .env.example .env
 
-##Configurar variables de entorno (En el archivo .env, usa esta configuración para desarrollo local con SQLite:)
+## Configurar variables de entorno (En el archivo .env, usa esta configuración para desarrollo local con SQLite:)
 APP_NAME=Esponsor
 APP_ENV=local
 APP_KEY=
@@ -58,7 +57,7 @@ php artisan serve
 ## Levantar Vite (frontend)
 npm run dev
 
-#Acceso local
+# Acceso local
 http://127.0.0.1:8000
 
 ## Notas
