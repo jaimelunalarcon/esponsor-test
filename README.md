@@ -25,8 +25,7 @@ Antes de iniciar, asegúrate de tener instalado:
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU-USUARIO/TU-REPO.git
-cd TU-REPO
+git clone https://github.com/jaimelunalarcon/esponsor-test.git 
 
 ##  Instalar dependencias de backend
 composer install
