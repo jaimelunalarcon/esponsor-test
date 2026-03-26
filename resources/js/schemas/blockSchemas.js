@@ -24,6 +24,39 @@ export const blockSchemas = {
     ],
   },
 
+    social: {
+  fields: [
+    {
+      key: 'instagram',
+      type: 'url',
+      label: 'Instagram',
+      placeholder: 'https://instagram.com/usuario',
+      default: '',
+    },
+    {
+      key: 'tiktok',
+      type: 'url',
+      label: 'TikTok',
+      placeholder: 'https://tiktok.com/@usuario',
+      default: '',
+    },
+    {
+      key: 'x',
+      type: 'url',
+      label: 'X',
+      placeholder: 'https://x.com/usuario',
+      default: '',
+    },
+    {
+      key: 'facebook',
+      type: 'url',
+      label: 'Facebook',
+      placeholder: 'https://facebook.com/usuario',
+      default: '',
+    },
+  ],
+},
+
   image: {
     fields: [
       {

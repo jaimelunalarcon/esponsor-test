@@ -88,7 +88,7 @@
               <div class="min-w-0">
                 <h2 class="text-xl font-bold text-slate-900">Preview móvil</h2>
                 <p class="mt-1 text-sm text-slate-500">
-                  ¡Asi se verá perfil publicado!
+                  ¡Así se verá el perfil publicado!
                 </p>
               </div>
 
@@ -112,9 +112,9 @@
 
           <div class="min-w-0 overflow-hidden px-1 sm:px-2">
             <div class="relative mx-auto w-full max-w-[320px] rounded-[40px] bg-gradient-to-b from-slate-800 to-black p-[8px] ring-1 ring-slate-200 sm:max-w-[340px] sm:rounded-[44px] sm:p-[9px] md:max-w-[390px] md:rounded-[48px] md:p-[10px]">
-              <div class="absolute -left-[3px] top-24 h-14 w-[4px] rounded-full bg-slate-700"></div>
-              <div class="absolute -left-[3px] top-44 h-20 w-[4px] rounded-full bg-slate-700"></div>
-              <div class="absolute -right-[3px] top-36 h-24 w-[4px] rounded-full bg-slate-700"></div>
+              <div class="absolute -left-[3px] top-24 hidden h-14 w-[4px] rounded-full bg-slate-700 md:block"></div>
+              <div class="absolute -left-[3px] top-44 hidden h-20 w-[4px] rounded-full bg-slate-700 md:block"></div>
+              <div class="absolute -right-[3px] top-36 hidden h-24 w-[4px] rounded-full bg-slate-700 md:block"></div>
 
               <div class="relative overflow-hidden rounded-[32px] bg-slate-50 sm:rounded-[36px] md:rounded-[40px]">
                 <div class="absolute left-1/2 top-3 z-20 h-6 w-28 -translate-x-1/2 rounded-full bg-black shadow sm:h-7 sm:w-32 md:w-36"></div>
@@ -153,7 +153,64 @@
                       {{ form.public_name || 'Tu nombre público' }}
                     </h1>
 
-                    <p class="mx-auto mt-2 max-w-[280px] text-sm leading-6 text-slate-600">
+                    <div
+                      v-if="socialBlock"
+                      class="mt-4 flex items-center justify-center gap-4"
+                    >
+                      <a
+                        v-if="socialBlock.props?.instagram"
+                        :href="socialBlock.props.instagram"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-slate-700 transition hover:scale-110 hover:text-pink-600"
+                        aria-label="Instagram"
+                      >
+                        <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
+                          <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5Zm8.75 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5Z"/>
+                        </svg>
+                      </a>
+
+                      <a
+                        v-if="socialBlock.props?.tiktok"
+                        :href="socialBlock.props.tiktok"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-slate-700 transition hover:scale-110 hover:text-black"
+                        aria-label="TikTok"
+                      >
+                        <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
+                          <path d="M14 3c.4 1.9 1.6 3.4 3.5 4.1.9.3 1.8.4 2.5.4V10c-1 0-2-.2-2.9-.6-.5-.2-1-.5-1.6-.9v6.2a5.7 5.7 0 1 1-5.7-5.7c.3 0 .7 0 1 .1v2.4a3.2 3.2 0 1 0 2.2 3v-11H14Z"/>
+                        </svg>
+                      </a>
+
+                      <a
+                        v-if="socialBlock.props?.x"
+                        :href="socialBlock.props.x"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-slate-700 transition hover:scale-110 hover:text-black"
+                        aria-label="X"
+                      >
+                        <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
+                          <path d="M18.9 2H22l-6.8 7.8L23 22h-6.1l-4.8-6.3L6.6 22H3.5l7.3-8.4L1 2h6.3l4.3 5.8L18.9 2Zm-1.1 18h1.7L6.4 3.9H4.6L17.8 20Z"/>
+                        </svg>
+                      </a>
+
+                      <a
+                        v-if="socialBlock.props?.facebook"
+                        :href="socialBlock.props.facebook"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        class="text-slate-700 transition hover:scale-110 hover:text-blue-600"
+                        aria-label="Facebook"
+                      >
+                        <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true">
+                          <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.6c0-.9.2-1.5 1.5-1.5h1.8V4.2c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.4v2.1H7.5v3.2H10V22h3.5Z"/>
+                        </svg>
+                      </a>
+                    </div>
+
+                    <p class="mx-auto mt-3 max-w-[280px] text-sm leading-6 text-slate-600">
                       {{ form.bio || 'Tu bio aparecerá aquí cuando la completes.' }}
                     </p>
                   </div>
@@ -172,17 +229,17 @@
       @save="save"
       @publish="publish"
     />
-  </main>
 
-  <PublishSuccessModal
-    :open="isFeedbackModalOpen"
-    :title="feedbackModalTitle"
-    :description="feedbackModalDescription"
-    :public-url="publicProfileUrl"
-    :show-public-button="feedbackModalShowPublicButton"
-    close-text="Continuar editando"
-    @close="isFeedbackModalOpen = false"
-  />
+    <PublishSuccessModal
+      :open="isFeedbackModalOpen"
+      :title="feedbackModalTitle"
+      :description="feedbackModalDescription"
+      :public-url="publicProfileUrl"
+      :show-public-button="feedbackModalShowPublicButton"
+      close-text="Continuar editando"
+      @close="isFeedbackModalOpen = false"
+    />
+  </main>
 </template>
 
 <script setup>
@@ -193,10 +250,6 @@ import BlockPreview from './BlockPreview.vue'
 import EditorHeader from './EditorHeader.vue'
 import EditorFooterActions from './EditorFooterActions.vue'
 import PublishSuccessModal from './PublishSuccessModal.vue'
-
-const isPublished = computed(() => {
-  return !!form.value.slug && !!form.value.draft_payload?.blocks?.length
-})
 
 const props = defineProps({
   user: {
@@ -227,8 +280,13 @@ const feedbackModalShowPublicButton = ref(false)
 
 const publicProfileUrl = computed(() => `/${form.value.slug}`)
 
+const isPublished = computed(() => {
+  return !!form.value.slug && !!form.value.draft_payload?.blocks?.length
+})
+
 const initials = computed(() => {
   if (!form.value.public_name) return 'U'
+
   return form.value.public_name
     .split(' ')
     .filter(Boolean)
@@ -236,6 +294,12 @@ const initials = computed(() => {
     .map((part) => part[0]?.toUpperCase())
     .join('')
 })
+
+const socialBlock = computed(() =>
+  (form.value.draft_payload?.blocks || []).find(
+    (block) => block.type === 'social' && block.enabled !== false
+  ) || null
+)
 
 const load = async () => {
   try {

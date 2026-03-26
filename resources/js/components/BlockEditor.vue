@@ -28,6 +28,13 @@
       >
         + Video
       </button>
+
+      <button
+        class="w-full rounded-2xl bg-white px-4 py-2.5 text-sm font-semibold text-slate-800 ring-1 ring-slate-300 transition hover:bg-slate-50"
+        @click="addBlock('social')"
+      >
+        + Redes sociales
+      </button>
     </div>
 
     <div

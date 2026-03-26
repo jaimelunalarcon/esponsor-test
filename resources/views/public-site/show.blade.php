@@ -39,6 +39,14 @@
 
             return $brightness > 150 ? '#0f172a' : '#ffffff';
         };
+
+        $socialBlock = collect($blocks)->first(function ($block) {
+            return ($block['type'] ?? null) === 'social' && (($block['enabled'] ?? true) !== false);
+        });
+
+        $contentBlocks = collect($blocks)->filter(function ($block) {
+            return ($block['type'] ?? null) !== 'social';
+        })->values();
     @endphp
 
     <main class="page lg:m-0 lg:p-0">
@@ -67,6 +75,42 @@
 
             <h1 class="name">{{ $site->public_name }}</h1>
 
+            @if($socialBlock)
+                <div style="display:flex; justify-content:center; gap:16px; margin-top:14px; margin-bottom:10px;">
+                    @if(!empty($socialBlock['props']['instagram']))
+                        <a href="{{ $socialBlock['props']['instagram'] }}" target="_blank" rel="noopener noreferrer" aria-label="Instagram" style="color:#475569; transition:all .2s ease;">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                                <path d="M7.75 2h8.5A5.75 5.75 0 0 1 22 7.75v8.5A5.75 5.75 0 0 1 16.25 22h-8.5A5.75 5.75 0 0 1 2 16.25v-8.5A5.75 5.75 0 0 1 7.75 2Zm0 1.5A4.25 4.25 0 0 0 3.5 7.75v8.5A4.25 4.25 0 0 0 7.75 20.5h8.5a4.25 4.25 0 0 0 4.25-4.25v-8.5A4.25 4.25 0 0 0 16.25 3.5h-8.5Zm8.75 2a1 1 0 1 1 0 2 1 1 0 0 1 0-2ZM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10Zm0 1.5A3.5 3.5 0 1 0 12 15.5 3.5 3.5 0 0 0 12 8.5Z"/>
+                            </svg>
+                        </a>
+                    @endif
+
+                    @if(!empty($socialBlock['props']['tiktok']))
+                        <a href="{{ $socialBlock['props']['tiktok'] }}" target="_blank" rel="noopener noreferrer" aria-label="TikTok" style="color:#475569; transition:all .2s ease;">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                                <path d="M14 3c.4 1.9 1.6 3.4 3.5 4.1.9.3 1.8.4 2.5.4V10c-1 0-2-.2-2.9-.6-.5-.2-1-.5-1.6-.9v6.2a5.7 5.7 0 1 1-5.7-5.7c.3 0 .7 0 1 .1v2.4a3.2 3.2 0 1 0 2.2 3v-11H14Z"/>
+                            </svg>
+                        </a>
+                    @endif
+
+                    @if(!empty($socialBlock['props']['x']))
+                        <a href="{{ $socialBlock['props']['x'] }}" target="_blank" rel="noopener noreferrer" aria-label="X" style="color:#475569; transition:all .2s ease;">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                                <path d="M18.9 2H22l-6.8 7.8L23 22h-6.1l-4.8-6.3L6.6 22H3.5l7.3-8.4L1 2h6.3l4.3 5.8L18.9 2Zm-1.1 18h1.7L6.4 3.9H4.6L17.8 20Z"/>
+                            </svg>
+                        </a>
+                    @endif
+
+                    @if(!empty($socialBlock['props']['facebook']))
+                        <a href="{{ $socialBlock['props']['facebook'] }}" target="_blank" rel="noopener noreferrer" aria-label="Facebook" style="color:#475569; transition:all .2s ease;">
+                            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor" aria-hidden="true">
+                                <path d="M13.5 22v-8.2h2.8l.4-3.2h-3.2V8.6c0-.9.2-1.5 1.5-1.5h1.8V4.2c-.3 0-1.3-.1-2.5-.1-2.5 0-4.1 1.5-4.1 4.4v2.1H7.5v3.2H10V22h3.5Z"/>
+                            </svg>
+                        </a>
+                    @endif
+                </div>
+            @endif
+
             @if($site->bio)
                 <p class="bio">{{ $site->bio }}</p>
             @endif
@@ -74,7 +118,7 @@
 
         <div class="container">
             <section class="blocks">
-                @forelse ($blocks as $index => $block)
+                @forelse ($contentBlocks as $index => $block)
                     @if (($block['type'] ?? null) === 'text')
                         @php
                             $backgroundColor = $block['props']['backgroundColor'] ?? '#ffffff';

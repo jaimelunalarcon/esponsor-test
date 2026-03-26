@@ -6,13 +6,12 @@
       class="space-y-4"
     >
       <div
-        v-for="(block, index) in enabledBlocks"
+        v-for="(block, index) in contentBlocks"
         :key="block.id"
         class="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-sm"
         :style="{ transitionDelay: `${index * 60}ms` }"
       >
-        <!-- TEXT -->
-        <template v-if="getBlockRenderer(block).type === 'text'">
+        <template v-if="block.type === 'text'">
           <div
             class="p-4"
             :style="{
@@ -36,8 +35,7 @@
           </div>
         </template>
 
-        <!-- IMAGE -->
-        <template v-else-if="getBlockRenderer(block).type === 'image'">
+        <template v-else-if="block.type === 'image'">
           <img
             v-if="block.props?.image_url"
             :src="block.props.image_url"
@@ -50,9 +48,8 @@
           </div>
         </template>
 
-        <!-- LINKS -->
-        <template v-else-if="getBlockRenderer(block).type === 'links'">
-          <div class="space-y-2 p-0">
+        <template v-else-if="block.type === 'links'">
+          <div class="space-y-2 p-4">
             <a
               v-for="(link, linkIndex) in (block.props?.links || [])"
               :key="linkIndex"
@@ -70,8 +67,7 @@
           </div>
         </template>
 
-        <!-- VIDEO -->
-        <template v-else-if="getBlockRenderer(block).type === 'video'">
+        <template v-else-if="block.type === 'video'">
           <div v-if="getEmbedUrl(block.props?.embed_url)" class="aspect-video bg-black">
             <iframe
               class="h-full w-full"
@@ -86,14 +82,13 @@
           </div>
         </template>
 
-        <!-- FALLBACK -->
         <div v-else class="p-4 text-sm text-slate-400">
           Bloque desconocido
         </div>
       </div>
     </TransitionGroup>
 
-    <div v-if="enabledBlocks.length" class="mt-4 flex justify-center">
+    <div v-if="contentBlocks.length" class="mt-4 flex justify-center">
       <a
         href="#"
         target="_blank"
@@ -116,7 +111,6 @@
 <script setup>
 import { computed } from 'vue'
 import logo from '../../images/esponsor-logo.svg'
-import { blockSchemas } from '../schemas/blockSchemas'
 
 const props = defineProps({
   blocks: {
@@ -128,9 +122,7 @@ const props = defineProps({
 const getEmbedUrl = (url) => {
   if (!url) return ''
 
-  if (url.includes('youtube.com/embed/')) {
-    return url
-  }
+  if (url.includes('youtube.com/embed/')) return url
 
   if (url.includes('youtu.be/')) {
     const id = url.split('youtu.be/')[1]?.split('?')[0]
@@ -149,7 +141,6 @@ const getContrastColor = (bgColor) => {
   if (!bgColor || typeof bgColor !== 'string') return '#0f172a'
 
   const hex = bgColor.replace('#', '')
-
   if (hex.length !== 6) return '#0f172a'
 
   const r = parseInt(hex.substring(0, 2), 16)
@@ -157,27 +148,17 @@ const getContrastColor = (bgColor) => {
   const b = parseInt(hex.substring(4, 6), 16)
 
   const brightness = (r * 299 + g * 587 + b * 114) / 1000
-
   return brightness > 150 ? '#0f172a' : '#ffffff'
-}
-
-const normalizedLinks = (links) => {
-  if (!Array.isArray(links)) return []
-  return links.filter((link) => link && (link.label || link.url))
-}
-
-const getBlockRenderer = (block) => {
-  if (!block?.type || !blockSchemas[block.type]) {
-    return { type: 'unknown' }
-  }
-
-  return { type: block.type }
 }
 
 const enabledBlocks = computed(() =>
   [...(props.blocks ?? [])]
     .filter((block) => block.enabled !== false)
     .sort((a, b) => (a.position ?? 0) - (b.position ?? 0))
+)
+
+const contentBlocks = computed(() =>
+  enabledBlocks.value.filter((block) => block.type !== 'social')
 )
 </script>
 
