@@ -49,7 +49,7 @@
         </template>
 
         <template v-else-if="block.type === 'links'">
-          <div class="space-y-2 p-4">
+          <div class="space-y-2">
             <a
               v-for="(link, linkIndex) in (block.props?.links || [])"
               :key="linkIndex"
